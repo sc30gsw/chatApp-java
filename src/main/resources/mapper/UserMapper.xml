@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.repository.UserMapper">
+
+	<!-- マッピング定義(ユーザー) -->
+	<resultMap type="com.example.demo.entity.MUser" id="user">
+		<id column="id" property="userId"></id>
+		<result column="email" property="email"></result>
+		<result column="password" property="password"></result>
+		<result column="password_confirmation" property="passwordConfirmation"></result>
+		<result column="name" property="username"></result>
+		<result column="role" property="role"></result>
+		<result column="created_at" property="createdAt"></result>
+		<result column="updated_at" property="updatedAt"></result>
+	</resultMap>
+
+	<!-- ユーザー1件登録 -->
+	<insert id="insertOne">
+		insert into users (
+			id,
+			email,
+			password,
+			password_confirmation,
+			name,
+			role,
+			created_at,
+			updated_at
+		) values (
+			#{userId,jdbcType=INTEGER},
+			#{email,jdbcType=VARCHAR},
+			#{password,jdbcType=VARCHAR},
+			#{passwordConfirmation,jdbcType=VARCHAR},
+			#{username,jdbcType=VARCHAR},
+			#{role,jdbcType=VARCHAR},
+			#{createdAt,jdbcType=TIMESTAMP},
+			#{updatedAt,jdbcType=TIMESTAMP}
+		)
+	</insert>
+</mapper>
