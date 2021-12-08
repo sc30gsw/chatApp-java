@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ChatApp</title>
+<link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+	<div class='account-page' id='account-page'>
+		<div class='account-page__inner clearfix'>
+			<div class='account-page__inner--left account-page__header'>
+				<h2>Create Account</h2>
+				<h5>新規アカウントの作成</h5>
+			</div>
+			<div class='account-page__inner--right user-form'>
+				<form th:action="@{/signup}" method="post" th:object="${form}" class="new_user">
+					<div class='field'>
+						<div class='field-label'>
+							<label for="username" th:text="#{username}"></label>
+						</div>
+						<div class='field-input'>
+							<input type="text" autofocus="autofocus" th:field="*{username}" th:errorclass="is-invalid">
+						</div>
+						<div class="invalid-feedback" th:errors="*{username}"></div>
+					</div>
+					<div class='field'>
+						<div class='field-label'>
+							<label for="email" th:text="#{email}"></label>
+						</div>
+						<div class='field-input'>
+							<input type="email" th:field="*{email}" th:errorclass="is-invalid">
+						</div>
+						<div class="invalid-feedback" th:errors="*{email}"></div>
+					</div>
+					<div class='field'>
+						<div class='field-label'>
+							<label for="password" th:text="#{password}"></label>
+							<i class="password-caution">(英数字6文字以上)</i>
+						</div>
+						<div class='field-input'>
+							<input type="password" th:field="*{password}" th:errorclass="is-invalid">
+						</div>
+						<div class="invalid-feedback" th:errors="*{password}"></div>
+					</div>
+					<div class='field'>
+						<div class='field-label'>
+							<label for="password" th:text="#{passwordConfirmation}"></label>
+						</div>
+						<div class='field-input'>
+							<input type="password" th:field="*{passwordConfirmation}" th:errorclass="is-invalid">
+						</div>
+						<div class="invalid-feedback" th:errors="*{passwordConfirmation}"></div>
+						<p th:if="${#fields.hasErrors('passwordValid')}" th:errors="*{passwordValid}"></p>
+					</div>
+					<div class='actions'>
+						<input type="submit" name="commit" value="Create Account" class="btn">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
