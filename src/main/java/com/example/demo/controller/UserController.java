@@ -54,4 +54,19 @@ public class UserController {
 
 		return "redirect:/";
 	}
+	
+	@GetMapping("/login")
+	public String getLogin() {
+		return "user/login";
+	}
+	
+	/**
+	 * ログイン機能
+	 */
+	@PostMapping("/login")
+	public String postLogin() {
+		log.info("ログイン");
+		return "rediret:/";//マイページのリンクを設定予定
+	}
+	
 }
