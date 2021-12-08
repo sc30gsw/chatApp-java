@@ -6,6 +6,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.example.demo.validate.Unused;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,7 @@ public class SignupForm {
 
 	@NotBlank
 	@Email
+	@Unused
 	private String email;
 	
 	@NotBlank
