@@ -50,6 +50,7 @@
 							<input type="password" th:field="*{passwordConfirmation}" th:errorclass="is-invalid">
 						</div>
 						<div class="invalid-feedback" th:errors="*{passwordConfirmation}"></div>
+						<p th:if="${#fields.hasErrors('passwordValid')}" th:errors="*{passwordValid}"></p>
 					</div>
 					<div class='actions'>
 						<input type="submit" name="commit" value="Create Account" class="btn">

@@ -1,5 +1,6 @@
 package com.example.demo.form;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -31,4 +32,13 @@ public class SignupForm {
 	@NotBlank
 	@Length(min = 4, max = 30)
 	private String username;
+	
+	@AssertTrue(message = "PasswordとPassword confirmationは同一にしてください。")
+	public boolean isPasswordValid() {
+		if (password == passwordConfirmation) {
+			return true;
+		}
+		
+		return false;
+	}
 }
