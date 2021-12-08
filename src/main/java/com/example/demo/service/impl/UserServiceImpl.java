@@ -1,8 +1,10 @@
 package com.example.demo.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.MUser;
@@ -15,13 +17,32 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper mapper;
 	
+	@Autowired
+	private PasswordEncoder encoder;
+	
+	@Override
 	public void signup(MUser user) {	
+		//パスワードの暗号化
+		String rawPassword = user.getPassword();
+		String rawPasswordConfirmation = user.getPasswordConfirmation();
+		user.setPassword(encoder.encode(rawPassword));
+		user.setPasswordConfirmation(encoder.encode(rawPasswordConfirmation));
+		
 		user.setRole("ROLE_GENERAL");
 		
+		//現在時刻の取得
 		LocalDateTime now = LocalDateTime.now();
 		user.setCreatedAt(now);
 		user.setUpdatedAt(now);
 		
 		mapper.insertOne(user);
+	}
+	
+	/**ログインユーザーをメールアドレスで検索*/
+	@Override
+	public MUser getLoginUser(String email) {		
+		Optional<MUser> option = mapper.findByEmail(email);
+		MUser user = option.orElse(null);
+		return user;
 	}
 }
