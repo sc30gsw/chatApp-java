@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ChatApp</title>
+<link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+	<div class='account-page' id='account-page'>
+		<div class='account-page__inner clearfix'>
+			<div class='account-page__inner--left account-page__header'>
+				<h2>Log in</h2>
+				<h5>登録しているユーザーでログイン</h5>
+				<a th:href="@{/signup}">Sign up</a>
+				<br>
+				<a href="#">Forgot your password?</a>
+			</div>
+			<div class='account-page__inner--right user-form'>
+				<form th:action="@{/login}" method="post">
+					<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+					th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+					class="text-danger"></p>
+					<div class='field'>
+						<div class='login-field-label'>
+							<label for="email">Email</label>
+						</div>
+						<div class='field-input'>
+							<input type="email" autofocus="autofocus" name="email">
+						</div>
+						<div class='field'>
+							<div class='login-field-label'>
+								<label for="password">Password</label>
+								<i>(英数字6文字以上)</i>
+							</div>
+							<div class='field-input'>
+								<input type="password" name="password">
+							</div>
+						</div>
+						<div class='actions'>
+							<input type="submit" name="commit" value="Log in" class="btn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

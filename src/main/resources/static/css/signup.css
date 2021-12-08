@@ -66,6 +66,14 @@
 	color: #d65f4c;
 }
 
+.login-field-label {
+	padding: 10px 0;
+	letter-spacing: 1px;
+	font-size: 14px;
+	font-weight: 200;
+	color: #000000;
+}
+
 .password-caution {
 	color: black;
 	font-size: 11px;
