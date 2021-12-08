@@ -38,4 +38,13 @@
 			#{updatedAt,jdbcType=TIMESTAMP}
 		)
 	</insert>
+	
+	<!-- ユーザー検索(Email) -->
+	<select id="findByEmail" resultType="MUser">
+		select
+			*
+		from users
+		where
+			email = #{email,jdbcType=VARCHAR}
+	</select>
 </mapper>
