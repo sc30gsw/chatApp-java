@@ -35,10 +35,10 @@ public class SignupForm {
 	
 	@AssertTrue(message = "PasswordとPassword confirmationは同一にしてください。")
 	public boolean isPasswordValid() {
-		if (password == passwordConfirmation) {
+		if (password == null || password.isEmpty()) {
 			return true;
 		}
 		
-		return false;
-	}
+		return password.equals(passwordConfirmation);
+	} 
 }
