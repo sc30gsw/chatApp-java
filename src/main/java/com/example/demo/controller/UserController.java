@@ -52,7 +52,7 @@ public class UserController {
 		//ユーザー登録
 		userService.signup(user);
 
-		return "redirect:/";
+		return "room/top";
 	}
 	
 	@GetMapping("/login")
