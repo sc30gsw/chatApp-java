@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>ChatApp</title>
+<link rel="stylesheet" th:href="@{/css/messages/messages.css}">
+</head>
+<body>
+	<div class="wrapper">
+		<div layout:replace="~{layout/side_bar::side_bar}"></div>
+		<div layout:replace="~{layout/main_chat::main_chat}"></div>
+	</div>
+</body>
+</html>
