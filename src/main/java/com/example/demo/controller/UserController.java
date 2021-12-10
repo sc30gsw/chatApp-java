@@ -25,6 +25,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@GetMapping("/signup")
 	public String getSignup(@ModelAttribute("form") SignupForm form) {
 		
@@ -46,11 +49,14 @@ public class UserController {
 		log.info(form.toString());
 		
 		//formをMUserクラスに変換
-		ModelMapper modelMapper = new ModelMapper();
 		MUser user = modelMapper.map(form, MUser.class);
 		
 		//ユーザー登録
 		userService.signup(user);
+		
+		if(user != null) {
+			return "messages/index";
+		}
 
 		return "redirect:/";
 	}
@@ -66,7 +72,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String postLogin() {
 		log.info("ログイン");
-		return "rediret:/";//マイページのリンクを設定予定
+		return "redirect:/";//マイページのリンクを設定予定
 	}
 	
 }
