@@ -11,6 +11,7 @@
 			<div class='account-page__inner--left account-page__header'>
 				<h2>Create Account</h2>
 				<h5>新規アカウントの作成</h5>
+				<a th:href="@{/login}">Log in</a>
 			</div>
 			<div class='account-page__inner--right user-form'>
 				<form th:action="@{/signup}" method="post" th:object="${form}" class="new_user">

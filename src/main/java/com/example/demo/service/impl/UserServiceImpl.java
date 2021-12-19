@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.MUser;
 import com.example.demo.repository.UserMapper;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PasswordEncoder encoder;
 	
+	@Transactional
 	@Override
 	public void signup(MUser user) {	
 		//パスワードの暗号化

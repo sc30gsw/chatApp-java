@@ -40,7 +40,7 @@ public class UserController {
 	@PostMapping("/signup")
 	public String postSignup(Model model, @Validated @ModelAttribute("form") SignupForm form, BindingResult result) {
 
-		/* 入力チェック*/
+		// 入力チェック
 		if (result.hasErrors()) {
 			/* NG:ユーザー登録画面に戻る*/
 			return "user/signup";
