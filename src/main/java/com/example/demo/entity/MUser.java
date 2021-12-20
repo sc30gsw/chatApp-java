@@ -9,11 +9,11 @@ import lombok.Data;
 @Data
 public class MUser {
 
-	private int userId;
+	private int id;
+	private String name;
 	private String email;
 	private String password;
 	private String passwordConfirmation;
-	private String username;
 	private String role;
 	
 	@DateTimeFormat(pattern = "yyyy_MM_dd HH:mm:ss")

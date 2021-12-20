@@ -13,6 +13,10 @@ import lombok.Data;
 
 @Data
 public class SignupForm {
+	
+	@NotBlank
+	@Length(min = 4, max = 30)
+	private String name;
 
 	@NotBlank
 	@Email
@@ -28,10 +32,6 @@ public class SignupForm {
 	@Length(min = 6, max = 128)
 	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String passwordConfirmation;
-	
-	@NotBlank
-	@Length(min = 4, max = 30)
-	private String username;
 	
 	@AssertTrue(message = "PasswordとPassword confirmationは同一にしてください。")
 	public boolean isPasswordValid() {
