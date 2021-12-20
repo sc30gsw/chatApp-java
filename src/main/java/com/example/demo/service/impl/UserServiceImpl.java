@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,11 @@ public class UserServiceImpl implements UserService {
 		Optional<MUser> option = mapper.findByEmail(email);
 		MUser user = option.orElse(null);
 		return user;
+	}
+	
+	/**ログインユーザー以外のユーザー取得(複数件)*/
+	@Override
+	public  List<MUser> getUsers(int id) {
+		return mapper.findMany(id);
 	}
 }
