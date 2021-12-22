@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.repository.RoomMapper">
+
+	<!-- マッピング定義(ユーザー) -->
+	<resultMap type="com.example.demo.entity.MRoom" id="room">
+		<id column="id" property="id"></id>
+		<result column="room_name" property="roomName"></result>
+		<result column="created_at" property="createdAt"></result>
+	</resultMap>
+	
+	<!-- チャットルーム登録 -->
+	<insert id="insertOneRoom">
+		insert into rooms (
+			id,
+			room_name,
+			created_at
+		) values (
+			#{id,jdbcType=INTEGER},
+			#{roomName,jdbcType=VARCHAR},
+			#{createdAt,jdbcType=TIMESTAMP}
+		)
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+      		select @@IDENTITY
+  		</selectKey>
+	</insert>
+	
+</mapper>
