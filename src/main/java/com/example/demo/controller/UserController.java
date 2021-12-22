@@ -53,10 +53,6 @@ public class UserController {
 		
 		//ユーザー登録
 		userService.signup(user);
-		
-		if(user != null) {
-			return "messages/index";
-		}
 
 		return "redirect:/";
 	}
@@ -73,6 +69,12 @@ public class UserController {
 	public String postLogin() {
 		log.info("ログイン");
 		return "redirect:/";//マイページのリンクを設定予定
+	}
+	
+	@PostMapping("/logout")
+	public String postLogout() {
+		log.info("ログアウト");
+		return "redirect:/login";
 	}
 	
 }
