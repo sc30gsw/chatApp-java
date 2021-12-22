@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.entity.MRoom;
 import com.example.demo.entity.MUser;
 import com.example.demo.entity.TRoomUser;
 import com.example.demo.form.RoomForm;
+import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomUserService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.UserDetailServiceImpll;
@@ -23,7 +25,7 @@ import com.example.demo.service.impl.UserDetailServiceImpll;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/rooms")
+@RequestMapping("/")
 @Slf4j
 public class RoomController {
 	
@@ -31,10 +33,25 @@ public class RoomController {
 	private UserService userService;
 	
 	@Autowired
+	private RoomService roomService;
+	
+	@Autowired
 	private RoomUserService roomUserService;
 	
+	@GetMapping("/")
+	public String getRoomsIndex(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
+		
+		//ログインユーザーのユーザー名取得
+		String username = loginUser.getUser().getName();
+		model.addAttribute("username", username);
+				
+		List<MRoom> rooms =roomService.getLoginUserRooms(loginUser);
+		model.addAttribute("rooms", rooms);
+		
+		return "rooms/index";
+	}
 
-	@GetMapping("/new")
+	@GetMapping("/rooms/new")
 	public String getRoomsNew(Model model, @ModelAttribute("form") RoomForm form, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 		
 		//ログインユーザーのユーザーID取得
@@ -48,7 +65,7 @@ public class RoomController {
 		return "rooms/new";
 	}
 	
-	@PostMapping("/new")
+	@PostMapping("/rooms/new")
 	public String postRoomsNew(Model model, @Validated @ModelAttribute("form") RoomForm form, BindingResult result, TRoomUser roomUser, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 		
 		//入力チェック

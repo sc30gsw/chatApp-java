@@ -20,7 +20,7 @@ public class MessageController {
 	@Autowired
 	private RoomService roomService;
 
-	@GetMapping("/")
+	@GetMapping("/messages")
 	public String getIndex(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 		
 		//ログインユーザーのユーザー名取得
