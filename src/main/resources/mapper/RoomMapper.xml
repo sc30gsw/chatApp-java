@@ -9,6 +9,16 @@
 		<id column="id" property="id"></id>
 		<result column="room_name" property="roomName"></result>
 		<result column="created_at" property="createdAt"></result>
+		<collection property="roomUserList" resultMap="roomUser"></collection>
+	</resultMap>
+	
+	<!-- マッピング定義(room_user) -->
+	<resultMap type="com.example.demo.entity.TRoomUser" id="roomUser">
+		<id column="id" property="id"></id>
+		<result column="room_id" property="roomId"></result>
+		<result column="current_user_id" property="currentUserId"></result>
+		<result column="created_at" property="createdAt"></result>
+		<result column="user_id" property="userId"></result>
 	</resultMap>
 	
 	<!-- チャットルーム登録 -->
@@ -26,5 +36,18 @@
       		select @@IDENTITY
   		</selectKey>
 	</insert>
+	
+	<!-- ログインユーザーのチャットルーム複数件取得 -->
+	<select id="findLoginUserRooms" resultMap="room">
+		select
+			room_name
+		from rooms r
+		inner join room_users ru
+			on r.id = ru.room_id
+		inner join users u
+			on ru.current_user_id = u.id
+		where
+			ru.current_user_id = #{currentUserId,jdbcType=INTEGER}
+	</select>
 	
 </mapper>

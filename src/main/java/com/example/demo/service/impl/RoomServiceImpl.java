@@ -1,8 +1,10 @@
 package com.example.demo.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,9 @@ public class RoomServiceImpl implements RoomService {
 	@Autowired
 	private RoomMapper mapper;
 	
+	/**
+	 *チャットルーム登録
+	 */
 	@Transactional
 	@Override
 	public void insertRoom(MRoom room, RoomForm form) {
@@ -30,4 +35,15 @@ public class RoomServiceImpl implements RoomService {
 		//チャットルーム登録
 		mapper.insertOneRoom(room);
 	}
+	
+	/**
+	 *ログインユーザーのチャットルーム複数件取得
+	 */
+	@Override
+	public List<MRoom> getLoginUserRooms(@AuthenticationPrincipal UserDetailServiceImpll loginUser) {
+		//ログインユーザーのユーザーIDを取得
+		int currentUserId = loginUser.getUser().getId();
+		
+		return mapper.findLoginUserRooms(currentUserId);
+	};
 }
