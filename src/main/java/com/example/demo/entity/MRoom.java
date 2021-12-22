@@ -7,19 +7,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class MUser {
+public class MRoom {
 
 	private int id;
-	private String name;
-	private String email;
-	private String password;
-	private String passwordConfirmation;
-	private String role;
+	private String roomName;
 	
 	@DateTimeFormat(pattern = "yyyy_MM_dd HH:mm:ss")
 	private LocalDateTime createdAt;
-	
-	@DateTimeFormat(pattern = "yyyy_MM_dd HH:mm:ss")
-	private LocalDateTime updatedAt;
-	
 }

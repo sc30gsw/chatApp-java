@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class Messages {
+public class MessageController {
 
 	@GetMapping("/")
 	public String getIndex() {
