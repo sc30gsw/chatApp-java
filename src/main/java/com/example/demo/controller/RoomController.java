@@ -56,7 +56,6 @@ public class RoomController {
 		
 		//ログインユーザーのユーザーID取得
 		int currentUserId = loginUser.getUser().getId();
-		model.addAttribute("currentUserId", currentUserId);
 		
 		//ユーザー取得(複数件)
 		List<MUser> users = userService.getUsers(currentUserId);
