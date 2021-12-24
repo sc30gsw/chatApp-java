@@ -4,7 +4,7 @@
 <!-- Mapperとxmlのマッピング -->
 <mapper namespace="com.example.demo.repository.RoomMapper">
 
-	<!-- マッピング定義(ユーザー) -->
+	<!-- マッピング定義(rooms) -->
 	<resultMap type="com.example.demo.entity.MRoom" id="room">
 		<id column="id" property="id"></id>
 		<result column="room_name" property="roomName"></result>
