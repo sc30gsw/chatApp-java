@@ -8,6 +8,9 @@ import com.example.demo.service.impl.UserDetailServiceImpll;
 
 public interface RoomUserService {
 
-	/**room_user登録*/
+	/**room_users登録*/
 	public void registRoomUser(RoomForm form, TRoomUser roomUser, @AuthenticationPrincipal UserDetailServiceImpll loginUser);
+	
+	/**room_users取得(1件)*/
+	public TRoomUser getRoomUserOne(int roomId);
 }
