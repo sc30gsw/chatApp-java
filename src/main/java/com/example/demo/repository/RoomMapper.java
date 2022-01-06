@@ -15,4 +15,6 @@ public interface RoomMapper {
 	/**ログインユーザーのチャットルーム複数件取得*/
 	public List<MRoom> findLoginUserRooms(int currentUserId);
 
+	/**チャットルーム(1件)取得*/
+	public MRoom findRoomOne(int id);
 }

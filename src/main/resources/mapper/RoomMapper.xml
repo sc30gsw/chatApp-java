@@ -40,7 +40,7 @@
 	<!-- ログインユーザーのチャットルーム複数件取得 -->
 	<select id="findLoginUserRooms" resultMap="room">
 		select
-			room_name
+			*
 		from rooms r
 		inner join room_users ru
 			on r.id = ru.room_id
@@ -48,6 +48,15 @@
 			on ru.current_user_id = u.id
 		where
 			ru.current_user_id = #{currentUserId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- チャットルーム1件取得 -->
+	<select id="findRoomOne" resultMap="room">
+		select
+			*
+		from rooms
+		where 
+			id = #{id,jdbcType=INTEGER}
 	</select>
 	
 </mapper>

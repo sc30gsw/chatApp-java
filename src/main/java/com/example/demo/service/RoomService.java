@@ -15,4 +15,8 @@ public interface RoomService {
 	
 	/**ログインユーザーのチャットルーム複数件取得*/
 	public List<MRoom> getLoginUserRooms(@AuthenticationPrincipal UserDetailServiceImpll loginUser);
+	
+	/**チャットルーム取得(1件)*/
+	public MRoom getRoomOne(int id);
+	
 }
