@@ -54,6 +54,6 @@
 			*
 		from users
 		where not
-			id = #{id}
+			id = #{id,jdbcType=INTEGER}
 	</select>
 </mapper>
