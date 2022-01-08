@@ -9,7 +9,7 @@
 <div class="side-bar" layout:fragment="side_bar">
 	<div class="side-bar-header">
 		<div class="header-name">
-			<a href="#" th:text="${username}"></a>
+			<a th:href="@{'/edit/'+${user.id}}" th:text="${user.name}"></a>
 		</div>
 		<div class="create-room">
 			<a th:href="@{/rooms/new}">チャットを作成する</a>
