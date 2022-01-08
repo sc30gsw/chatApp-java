@@ -21,4 +21,7 @@ public interface RoomMapper {
 	
 	/**チャットルームに紐づくメッセージ取得*/
 	public List<TMessages> findMessagesAll(int id);
+	
+	/**チャットルーム(1件)削除*/
+	public int deleteRoomOne(int id);
 }

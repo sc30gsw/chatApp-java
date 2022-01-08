@@ -93,4 +93,12 @@
 			r.id = #{id,jdbcType=INTEGER}
 	</select>
 	
+	<!-- チャットルーム削除(1件) -->
+	<delete id="deleteRoomOne">
+		delete
+			from rooms
+		where
+			id = #{id,jdbcType=INTEGER}
+	</delete>
+	
 </mapper>
