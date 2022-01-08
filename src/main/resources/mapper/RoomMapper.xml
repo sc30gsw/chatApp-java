@@ -37,7 +37,7 @@
   		</selectKey>
 	</insert>
 	
-	<!-- ログインユーザーのチャットルーム複数件取得 -->
+	<!-- ログインユーザーと選択されたユーザーのチャットルーム複数件取得 -->
 	<select id="findLoginUserRooms" resultMap="room">
 		select
 			*
@@ -48,6 +48,8 @@
 			on ru.current_user_id = u.id
 		where
 			ru.current_user_id = #{currentUserId,jdbcType=INTEGER}
+		or 
+			ru.user_id = #{userId,jdbcType=INTEGER}
 	</select>
 	
 	<!-- チャットルーム1件取得 -->
