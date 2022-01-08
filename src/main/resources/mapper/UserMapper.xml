@@ -56,4 +56,15 @@
 		where not
 			id = #{id,jdbcType=INTEGER}
 	</select>
+	
+	<!-- ユーザー1件更新 -->
+	<update id="updateUser">
+		update
+			users
+		set
+			name = #{name,jdbcType=VARCHAR},
+			email = #{email,jdbcType=VARCHAR}
+		where
+			id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

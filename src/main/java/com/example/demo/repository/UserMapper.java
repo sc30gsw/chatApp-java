@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.demo.entity.MUser;
 
@@ -18,4 +19,7 @@ public interface UserMapper {
 	
 	/**ログインユーザー以外のユーザー取得(複数件)*/
 	public List<MUser> findMany(int id);
+	
+	/**ユーザー更新(1件)*/
+	public void updateUser(@Param("id") int id, @Param("name") String name, @Param("email") String email);
 }
