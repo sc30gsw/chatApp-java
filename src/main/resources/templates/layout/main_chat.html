@@ -12,9 +12,9 @@
 				<div class="header-title" th:text="${roomName}"></div>
 			</div>
 			<div class="right-header">
-				<div class="header-button">
-					<a href="#">チャットを終了する</a>
-				</div>
+				<form th:action="@{'/rooms/'+${roomId}+'/delete'}" method="post" class="header-button">
+					<input class="delete-btn" name="delete" type="submit" value="チャットを終了する">
+				</form>
 			</div>
 		</div>
 
