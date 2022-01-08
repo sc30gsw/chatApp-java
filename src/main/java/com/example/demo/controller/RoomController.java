@@ -87,40 +87,63 @@ public class RoomController {
 	}
 
 	@GetMapping("/rooms/{roomId}")
-	public String getRoom(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser, @PathVariable("roomId") int id, @ModelAttribute("form") MessageForm form) {
-		
+	public String getRoom(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser,
+			@PathVariable("roomId") int id, @ModelAttribute("form") MessageForm form) {
+
 		//ログインユーザーの情報を取得
 		String username = loginUser.getUser().getName();
 		int loginUserId = loginUser.getUser().getId();
-		
+
 		model.addAttribute("username", username);
 
 		//ログインユーザーと選択されたユーザーが保有するチャットルームを取得
 		List<MRoom> rooms = roomService.getLoginUserRooms(loginUser);
 		model.addAttribute("rooms", rooms);
-		
+
 		//room_usersテーブルのレコード(1件)取得
 		TRoomUser roomUser = roomUserService.getRoomUserOne(id);
-		
+
 		//room_usersに登録されているログインユーザーのIDを取得
 		int currentUserId = roomUser.getCurrentUserId();
 		//room_usersに登録されているチャットするユーザーのIDを取得
 		int userId = roomUser.getUserId();
-		
+
 		//ログインユーザーとroom_usersのログインユーザーID、またはログインユーザーとチャット選択されたユーザーのIDが等しい時メッセー送信画面に遷移する
-		if(loginUserId == currentUserId || loginUserId == userId) {
+		if (loginUserId == currentUserId || loginUserId == userId) {
 			//チャットルーム1件取得
 			MRoom room = roomService.getRoomOne(id);
 			String roomName = room.getRoomName();
 			model.addAttribute("roomName", roomName);
-			
+
 			//チャットルームに紐づくメッセージ取得
 			List<TMessages> messages = roomService.getMessagesAll(id);
 			model.addAttribute("messages", messages);
-			
+
 			return "messages/index";
 		}
-		
+
+		return "redirect:/";
+	}
+
+	@PostMapping(value = "/rooms/{roomId}/delete", params = "delete")
+	public String deleteRoom(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser,
+			@PathVariable("roomId") int id) {
+		//ログインユーザーの情報を取得
+		int loginUserId = loginUser.getUser().getId();
+
+		//room_usersテーブルのレコード(1件)取得
+		TRoomUser roomUser = roomUserService.getRoomUserOne(id);
+
+		//room_usersに登録されているログインユーザーのIDを取得
+		int currentUserId = roomUser.getCurrentUserId();
+		//room_usersに登録されているチャットするユーザーのIDを取得
+		int userId = roomUser.getUserId();
+
+		//ログインユーザーとroom_usersのログインユーザーID、またはログインユーザーとチャット選択されたユーザーのIDが等しい時メッセー送信画面に遷移する
+		if (loginUserId == currentUserId || loginUserId == userId) {
+			roomService.deleteRoomMessageOne(id);
+		}
+
 		return "redirect:/";
 	}
 }
