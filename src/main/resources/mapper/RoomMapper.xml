@@ -62,6 +62,7 @@
 			ru.current_user_id = #{currentUserId,jdbcType=INTEGER}
 		or 
 			ru.user_id = #{userId,jdbcType=INTEGER}
+		order by r.created_at DESC
 	</select>
 	
 	<!-- チャットルーム1件取得 -->
@@ -91,6 +92,7 @@
 			on m.user_id = u.id
 		where
 			r.id = #{id,jdbcType=INTEGER}
+		order by m.created_at DESC
 	</select>
 	
 	<!-- チャットルーム削除(1件) -->
