@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.MRoom;
+import com.example.demo.entity.TMessages;
 import com.example.demo.form.RoomForm;
 import com.example.demo.repository.RoomMapper;
 import com.example.demo.service.RoomService;
@@ -53,6 +54,20 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public MRoom getRoomOne(int id) {
 		return mapper.findRoomOne(id);
+	}
+	
+	/**
+	 *チャットルームに紐づくメッセージ取得
+	 */
+	@Override
+	public List<TMessages> getMessagesAll(int id) {
+		return mapper.findMessagesAll(id);
+	}
+	
+	@Transactional
+	@Override
+	public void deleteRoomMessageOne(int id) {
+		int count = mapper.deleteRoomOne(id);
 	}
 
 }

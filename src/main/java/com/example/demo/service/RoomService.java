@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.example.demo.entity.MRoom;
+import com.example.demo.entity.TMessages;
 import com.example.demo.form.RoomForm;
 import com.example.demo.service.impl.UserDetailServiceImpll;
 
@@ -18,5 +19,11 @@ public interface RoomService {
 	
 	/**チャットルーム取得(1件)*/
 	public MRoom getRoomOne(int id);
+	
+	/**チャットルームに紐づくメッセージ取得*/
+	public List<TMessages> getMessagesAll(int id);
+	
+	/**チャットルーム(1件)削除*/
+	public void deleteRoomMessageOne(int id);
 	
 }
