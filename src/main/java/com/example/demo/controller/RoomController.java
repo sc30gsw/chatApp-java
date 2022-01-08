@@ -45,9 +45,9 @@ public class RoomController {
 	public String getRoomsIndex(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 
 		//ログインユーザーのユーザー名取得
-		String username = loginUser.getUser().getName();
-		model.addAttribute("username", username);
-
+		MUser user = loginUser.getUser();
+		model.addAttribute("user", user);
+		
 		List<MRoom> rooms = roomService.getLoginUserRooms(loginUser);
 		model.addAttribute("rooms", rooms);
 
