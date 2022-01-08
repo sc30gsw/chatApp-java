@@ -13,7 +13,7 @@ public interface RoomService {
 	/**チャットルーム登録*/
 	public void insertRoom(MRoom room, RoomForm form);
 	
-	/**ログインユーザーのチャットルーム複数件取得*/
+	/**ログインユーザーと選択されたユーザーのチャットルーム複数件取得*/
 	public List<MRoom> getLoginUserRooms(@AuthenticationPrincipal UserDetailServiceImpll loginUser);
 	
 	/**チャットルーム取得(1件)*/

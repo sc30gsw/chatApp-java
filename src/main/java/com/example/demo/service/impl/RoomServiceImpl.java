@@ -37,7 +37,7 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	/**
-	 *ログインユーザーのチャットルーム複数件取得
+	 *ログインユーザーと選択されたユーザーのチャットルーム複数件取得
 	 */
 	@Override
 	public List<MRoom> getLoginUserRooms(@AuthenticationPrincipal UserDetailServiceImpll loginUser) {

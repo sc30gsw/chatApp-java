@@ -12,7 +12,7 @@ public interface RoomMapper {
 	/**チャットルーム登録*/
 	public int insertOneRoom(MRoom room);
 	
-	/**ログインユーザーのチャットルーム複数件取得*/
+	/**ログインユーザーと選択されたユーザーのチャットルーム複数件取得*/
 	public List<MRoom> findLoginUserRooms(int currentUserId);
 
 	/**チャットルーム(1件)取得*/
