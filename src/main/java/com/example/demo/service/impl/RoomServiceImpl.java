@@ -18,7 +18,7 @@ public class RoomServiceImpl implements RoomService {
 
 	@Autowired
 	private RoomMapper mapper;
-	
+
 	/**
 	 *チャットルーム登録
 	 */
@@ -27,23 +27,32 @@ public class RoomServiceImpl implements RoomService {
 	public void insertRoom(MRoom room, RoomForm form) {
 		//チャットルーム名取得
 		room.setRoomName(form.getRoomName());
-		
+
 		//現在時刻の取得
 		LocalDateTime now = LocalDateTime.now();
 		room.setCreatedAt(now);
-		
+
 		//チャットルーム登録
 		mapper.insertOneRoom(room);
 	}
-	
+
 	/**
-	 *ログインユーザーのチャットルーム複数件取得
+	 *ログインユーザーと選択されたユーザーのチャットルーム複数件取得
 	 */
 	@Override
 	public List<MRoom> getLoginUserRooms(@AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 		//ログインユーザーのユーザーIDを取得
 		int currentUserId = loginUser.getUser().getId();
-		
+
 		return mapper.findLoginUserRooms(currentUserId);
-	};
+	}
+
+	/**
+	 *チャットルーム取得(1件)
+	 */
+	@Override
+	public MRoom getRoomOne(int id) {
+		return mapper.findRoomOne(id);
+	}
+
 }

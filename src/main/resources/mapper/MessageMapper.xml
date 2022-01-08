@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.repository.MessageMapper">
+	
+	<!-- マッピング定義(messages) -->
+	<resultMap type="com.example.demo.entity.TMessages" id="message">
+		<id column="id" property="id"></id>
+		<result column="content" property="content"></result>
+		<result column="image" property="image"></result> 
+		<result column="room_id" property="roomId"></result>
+		<result column="user_id" property="userId"></result>
+		<result column="created_at" property="createdAt"></result>
+		<result column="updated_at" property="updatedAt"></result>
+	</resultMap>
+	
+	<!-- メッセージ登録 -->
+	<insert id="insertOneMessage">
+		insert into messages (
+			id,
+			content,
+			image,
+			room_id,
+			user_id,
+			created_at,
+			updated_at
+		) values (
+			#{id,jdbcType=INTEGER},
+			#{content,jdbcType=VARCHAR},
+			#{image,jdbcType=BLOB},
+			#{roomId,jdbcType=INTEGER},
+			#{userId,jdbcType=INTEGER},
+			#{createdAt,jdbcType=TIMESTAMP},
+			#{updatedAt,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+</mapper>

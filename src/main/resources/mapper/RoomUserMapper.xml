@@ -13,7 +13,7 @@
 		<result column="user_id" property="userId"></result>
 	</resultMap>
 	
-	<!-- room_user登録 -->
+	<!-- room_users登録 -->
 	<insert id="insertRoomUser">
 		insert into room_users (
 			id,
@@ -29,4 +29,14 @@
 			#{userId,jdbcType=INTEGER}
 		)
 	</insert>
+	
+	<!-- room_users取得(1件) -->
+	<select id="findRoomUserOne" resultMap="roomUser">
+		select
+			*
+		from room_users
+		where
+			room_id = #{roomId,jdbcType=INTEGER}
+	</select>
+	
 </mapper>

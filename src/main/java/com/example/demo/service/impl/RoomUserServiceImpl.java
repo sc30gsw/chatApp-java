@@ -19,35 +19,50 @@ public class RoomUserServiceImpl implements RoomUserService {
 
 	@Autowired
 	private RoomUserMapper mapper;
-	
+
 	@Autowired
 	private RoomService service;
-	
+
+	/**
+	 *room_users登録
+	 */
 	@Transactional
 	@Override
-	public void registRoomUser(RoomForm form, TRoomUser roomUser, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
-		
-		//formをMRoomクラスに変換
+	public void registRoomUser(RoomForm form, TRoomUser roomUser,
+			@AuthenticationPrincipal UserDetailServiceImpll loginUser) {
+
 		MRoom room = new MRoom();
-				
+
 		//チャットルーム登録
 		service.insertRoom(room, form);
-		
+
 		//ログインユーザーのユーザーID取得
 		int currentUserId = loginUser.getUser().getId();
-		
+
 		//roomsテーブルのIDを設定(FK)
 		roomUser.setRoomId(room.getId());
 		//ログインユーザーのIDを設定
 		roomUser.setCurrentUserId(currentUserId);
 		//プルダウン選択されたユーザーIDを設定
 		roomUser.setUserId(form.getUserId());
-		
+
 		//現在時刻の取得
 		LocalDateTime now = LocalDateTime.now();
 		roomUser.setCreatedAt(now);
-		
+
 		//roomUserTBL登録
 		mapper.insertRoomUser(roomUser);
 	}
+
+	/**
+	 *room_users取得(1件)
+	 */
+	@Override
+	public TRoomUser getRoomUserOne(int roomId) {
+		MRoom room = service.getRoomOne(roomId);
+		int roomIdl = room.getId();
+
+		return mapper.findRoomUserOne(roomIdl);
+	}
+
 }

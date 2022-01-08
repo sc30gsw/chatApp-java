@@ -40,15 +40,17 @@
 			</div>
 		</div>
 
-		<div class="form">
+		<form class="form" th:action="@{'/rooms/'+${roomId}+'/message'}" method="post" th:object="${form}" enctype="multipart/form-data">
 			<div class="form-input">
-				<input class="form-message" placeholder="type a message"> <label
-					class="form-image"> <span class="image-file">画像</span> <input
-					type="file" class="hidden">
+				<input th:field="*{content}" th:errorclass="is-invalid" class="form-message" placeholder="type a message">
+				<div class="invalid-feedback" th:errors="*{content}"></div>
+				<label class="form-image"> 
+					<span class="image-file">画像</span> 
+					<input th:field="*{multiPartFile}" type="file" class="hidden">
 				</label>
 			</div>
-			<input class="form-submit" type="submit" value="送信">
-		</div>
+			<input class="form-submit" type="submit" name="commit" value="送信">
+		</form>
 	</div>
 </body>
 </html>
