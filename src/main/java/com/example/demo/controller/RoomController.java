@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.entity.MRoom;
 import com.example.demo.entity.MUser;
 import com.example.demo.entity.TRoomUser;
+import com.example.demo.form.MessageForm;
 import com.example.demo.form.RoomForm;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomUserService;
@@ -84,8 +85,8 @@ public class RoomController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/rooms/{id}")
-	public String getRoom(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser, @PathVariable("id") int id) {
+	@GetMapping("/rooms/{roomId}")
+	public String getRoom(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser, @PathVariable("roomId") int id, @ModelAttribute("form") MessageForm form) {
 		
 		//ログインユーザーの情報を取得
 		String username = loginUser.getUser().getName();
@@ -93,7 +94,7 @@ public class RoomController {
 		
 		model.addAttribute("username", username);
 
-		//ログインユーザーが保有するチャットルームを取得
+		//ログインユーザーと選択されたユーザーが保有するチャットルームを取得
 		List<MRoom> rooms = roomService.getLoginUserRooms(loginUser);
 		model.addAttribute("rooms", rooms);
 		
@@ -107,7 +108,7 @@ public class RoomController {
 		
 		//ログインユーザーとroom_usersのログインユーザーID、またはログインユーザーとチャット選択されたユーザーのIDが等しい時メッセー送信画面に遷移する
 		if(loginUserId == currentUserId || loginUserId == userId) {
-			return "messages/index";
+			return "redirect:/rooms/{roomId}";
 		}
 		
 		return "redirect:/";
