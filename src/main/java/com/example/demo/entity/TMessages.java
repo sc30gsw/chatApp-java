@@ -13,7 +13,7 @@ public class TMessages {
 	private String content;
 	private int roomId;
 	private int userId;
-	private byte[] image;
+	private String image;
 	
 	@DateTimeFormat(pattern = "yyyy_MM_dd HH:mm:ss")
 	private LocalDateTime createdAt;
