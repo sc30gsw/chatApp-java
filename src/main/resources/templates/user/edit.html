@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ChatApp</title>
+<link rel="stylesheet" th:href="@{/css/user/signup.css}">
+</head>
+<body>
+	<div class='account-page' id='account-page'>
+		<div class='account-page__inner clearfix'>
+			<div class='account-page__inner--left account-page__header'>
+				<h2>Edit Account</h2>
+				<h5>アカウントの編集</h5>
+				<div class="account-page_btn">
+					<form role="form" id="logout" th:action="@{/logout}" method="post">
+    					<button class="logout-btn" type="submit">ログアウト</button>
+					</form>
+					<a class="btn" th:href="@{/}">チャットページに戻る</a>
+				</div>
+			</div>
+			<div class='account-page__inner--right user-form'>
+				<form th:object="${form}" method="post" th:action="@{'/edit/'+${userId}+'/update'}">
+				<div class='field'>
+					<div class='field-label'>
+						<label for="name" th:text="#{name}"></label>
+					</div>
+					<div class='field-input'>
+						<input type="text" th:field="*{name}" autofocus="autofocus" th:errorclass="is-invalid">
+						<div class="invalid-feedback" th:errors="*{name}"></div>
+					</div>
+				</div>
+				<div class='field'>
+					<div class='field-label'>
+						<label for="email" th:text="#{email}"></label>
+					</div>
+					<div class='field-input'>
+						<input type="email" th:field="*{email}" th:errorclass="is-invalid">
+						<div class="invalid-feedback" th:errors="*{email}"></div>
+					</div>
+				</div>
+				<div class='actions'>
+					<input type="submit" name="update" value="Update" class="btn">
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
