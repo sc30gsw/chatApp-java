@@ -17,4 +17,6 @@ public class MRoom {
 	private LocalDateTime createdAt;
 	
 	private List<TRoomUser> roomUserList;
+	
+	private List<TMessages> messagesList;
 }

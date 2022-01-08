@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.entity.MRoom;
+import com.example.demo.entity.TMessages;
 
 @Mapper
 public interface RoomMapper {
@@ -17,4 +18,7 @@ public interface RoomMapper {
 
 	/**チャットルーム(1件)取得*/
 	public MRoom findRoomOne(int id);
+	
+	/**チャットルームに紐づくメッセージ取得*/
+	public List<TMessages> findMessagesAll(int id);
 }
