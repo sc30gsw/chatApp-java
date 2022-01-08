@@ -123,3 +123,25 @@
 	width: 5px;
 	background-color: #d65f4c;
 }
+
+.account-page_btn {
+	display: flex;
+}
+
+.logout-btn {
+	margin-top: 20px;
+	margin-right: 5px;
+	cursor: pointer;
+	color: #fff;
+	border-bottom: 1px solid #fff;
+	background-color: #ccc;
+	font-size: 14px;
+	display: inline-block;
+	height: 50px;
+	padding: 0 30px;
+	line-height: 50px;
+	letter-spacing: 1px;
+	text-align: center;
+	border: none;
+	border-radius: 2px;
+}

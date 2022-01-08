@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.MUser;
+import com.example.demo.form.UserEditForm;
 import com.example.demo.repository.UserMapper;
 import com.example.demo.service.UserService;
 
@@ -53,5 +55,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public  List<MUser> getUsers(int id) {
 		return mapper.findMany(id);
+	}
+	
+	@Transactional
+	@Override
+	public void updateUserOne(@AuthenticationPrincipal UserDetailServiceImpll loginUser, UserEditForm form) {
+		//ログインユーザーID取得
+		int id = loginUser.getUser().getId();
+		
+		//フォームから値を取得
+		String name = form.getName();
+		String email = form.getEmail();
+		
+		mapper.updateUser(id, name, email);
 	}
 }

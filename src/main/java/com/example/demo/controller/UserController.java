@@ -2,18 +2,22 @@ package com.example.demo.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.MUser;
 import com.example.demo.form.SignupForm;
+import com.example.demo.form.UserEditForm;
 import com.example.demo.service.UserService;
+import com.example.demo.service.impl.UserDetailServiceImpll;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -71,10 +75,28 @@ public class UserController {
 		return "redirect:/";//マイページのリンクを設定予定
 	}
 	
-	@PostMapping("/logout")
-	public String postLogout() {
-		log.info("ログアウト");
+	@GetMapping("/edit/{id}")
+	public String getEditUser(Model model, @ModelAttribute("form") UserEditForm form, @AuthenticationPrincipal UserDetailServiceImpll loginUser, @PathVariable("id") int id) {
+		int userId = loginUser.getUser().getId();
+		model.addAttribute("userId", userId);
+		
+		if(id != userId) {
+			return "redirect:/";
+		}
+		return "user/edit";
+	}
+	
+	@PostMapping(value = "/edit/{id}/update", params = "update")
+	public String postUserUpdate(@Validated @ModelAttribute("form") UserEditForm form, BindingResult result, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
+		
+		if(result.hasErrors()) {
+			return "redirect:/edit/{id}";
+		}
+		
+		userService.updateUserOne(loginUser, form);
+		
 		return "redirect:/login";
 	}
+	
 	
 }
