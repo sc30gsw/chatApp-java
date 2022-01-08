@@ -9,7 +9,7 @@
 	<div class="chat" layout:fragment="main_chat">
 		<div class="chat-header">
 			<div class="left-header">
-				<div class="header-title">hogefuga</div>
+				<div class="header-title" th:text="${roomName}"></div>
 			</div>
 			<div class="right-header">
 				<div class="header-button">
@@ -19,23 +19,16 @@
 		</div>
 
 		<div class="messages">
-			<div class="message">
+			<div class="message" th:each="message: ${messages}">
 				<div class="upper-message">
-					<div class="message-user">Tom</div>
-					<div class="message-date">2020/3/31(Wed) 12:43:30</div>
+					<div class="message-user" th:text="${message.name}"></div>
+					<div class="message-date" th:text="${message.createdAt}">></div>
 				</div>
 				<div class="lower-message">
-					<div class="message-content">おはよう</div>
-				</div>
-			</div>
-
-			<div class="message">
-				<div class="upper-message">
-					<div class="message-user">Tom</div>
-					<div class="message-date">2020/3/31(Wed) 12:47:30</div>
-				</div>
-				<div class="lower-message">
-					<div class="message-content">こんばんは</div>
+					<div class="message-content" th:text="${message.content}"></div>
+					<div th:if="${message.image != 'data:image/png;base64, '}">
+						<img class="message-image" th:src="${message.image}" alt="">
+					</div>
 				</div>
 			</div>
 		</div>

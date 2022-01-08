@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.MRoom;
 import com.example.demo.entity.MUser;
+import com.example.demo.entity.TMessages;
 import com.example.demo.entity.TRoomUser;
 import com.example.demo.form.MessageForm;
 import com.example.demo.form.RoomForm;
@@ -108,7 +109,16 @@ public class RoomController {
 		
 		//ログインユーザーとroom_usersのログインユーザーID、またはログインユーザーとチャット選択されたユーザーのIDが等しい時メッセー送信画面に遷移する
 		if(loginUserId == currentUserId || loginUserId == userId) {
-			return "redirect:/rooms/{roomId}";
+			//チャットルーム1件取得
+			MRoom room = roomService.getRoomOne(id);
+			String roomName = room.getRoomName();
+			model.addAttribute("roomName", roomName);
+			
+			//チャットルームに紐づくメッセージ取得
+			List<TMessages> messages = roomService.getMessagesAll(id);
+			model.addAttribute("messages", messages);
+			
+			return "messages/index";
 		}
 		
 		return "redirect:/";
