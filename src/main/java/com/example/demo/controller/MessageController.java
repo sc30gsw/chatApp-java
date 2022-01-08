@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class MessageController {
 
 		//チャットルーム1件取得
 		MRoom room = roomService.getRoomOne(roomId);
-		
+
 		if (result.hasErrors()) {
 			//NG:メッセージ送信画面にリダイレクト
 			return "redirect:/rooms/{roomId}";
@@ -49,9 +50,15 @@ public class MessageController {
 		log.info(form.toString());
 
 		//画像データをフォームから取得し設定
-		message.setImage(form.getMultiPartFile().getBytes());
+		StringBuffer data = new StringBuffer();
+		String base64 = new String(Base64.encodeBase64(form.getMultiPartFile().getBytes()), "ASCII");
+		data.append("data:image/png;base64, ");
+		data.append(base64);
+		message.setImage(data.toString());
+
 		service.insertMessage(message, form, loginUser, room.getId());
 
 		return "redirect:/rooms/{roomId}";
 	}
+
 }
