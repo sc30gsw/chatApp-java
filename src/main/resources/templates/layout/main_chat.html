@@ -26,9 +26,7 @@
 				</div>
 				<div class="lower-message">
 					<div class="message-content" th:text="${message.content}"></div>
-					<div th:if="${message.image != 'data:image/png;base64, '}">
-						<img class="message-image" th:src="${message.image}" alt="">
-					</div>
+					<img th:if="${message.image != 'data:image/png;base64, '}" class="message-image" th:src="${message.image}" alt="">
 				</div>
 			</div>
 		</div>
