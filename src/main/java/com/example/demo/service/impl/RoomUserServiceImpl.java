@@ -31,7 +31,6 @@ public class RoomUserServiceImpl implements RoomUserService {
 	public void registRoomUser(RoomForm form, TRoomUser roomUser,
 			@AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 
-		//formをMRoomクラスに変換
 		MRoom room = new MRoom();
 
 		//チャットルーム登録
