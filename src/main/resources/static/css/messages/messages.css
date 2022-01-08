@@ -183,3 +183,8 @@
 .hidden {
 	display: none;
 }
+
+.message-image {
+	height: 500px;
+	width: 500px;
+}
