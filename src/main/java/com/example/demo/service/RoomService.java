@@ -23,4 +23,7 @@ public interface RoomService {
 	/**チャットルームに紐づくメッセージ取得*/
 	public List<TMessages> getMessagesAll(int id);
 	
+	/**チャットルーム(1件)削除*/
+	public void deleteRoomMessageOne(int id);
+	
 }

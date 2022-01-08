@@ -63,5 +63,11 @@ public class RoomServiceImpl implements RoomService {
 	public List<TMessages> getMessagesAll(int id) {
 		return mapper.findMessagesAll(id);
 	}
+	
+	@Transactional
+	@Override
+	public void deleteRoomMessageOne(int id) {
+		int count = mapper.deleteRoomOne(id);
+	}
 
 }
