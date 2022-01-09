@@ -97,7 +97,7 @@ public class UserController {
 
 		userService.updateUserOne(loginUser, form);
 
-		return "redirect:/login";
+		return "redirect:/";
 	}
 
 }
