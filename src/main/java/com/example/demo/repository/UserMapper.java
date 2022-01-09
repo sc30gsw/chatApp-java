@@ -22,4 +22,5 @@ public interface UserMapper {
 	
 	/**ユーザー更新(1件)*/
 	public void updateUser(@Param("id") int id, @Param("name") String name, @Param("email") String email);
+	
 }

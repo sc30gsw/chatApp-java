@@ -90,7 +90,6 @@ public class UserController {
 	@PostMapping(value = "/edit/{id}/update", params = "update")
 	public String postUserUpdate(@Validated @ModelAttribute("form") UserEditForm form,
 			BindingResult result, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
-		
 		if (result.hasErrors()) {
 			return "redirect:/edit/{id}";
 		}
