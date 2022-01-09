@@ -28,16 +28,16 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@GetMapping("/signup")
 	public String getSignup(@ModelAttribute("form") SignupForm form) {
-		
+
 		return "user/signup";
 	}
-	
+
 	/**
 	 * ユーザー登録処理
 	 */
@@ -51,21 +51,21 @@ public class UserController {
 		}
 
 		log.info(form.toString());
-		
+
 		//formをMUserクラスに変換
 		MUser user = modelMapper.map(form, MUser.class);
-		
+
 		//ユーザー登録
 		userService.signup(user);
 
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/login")
 	public String getLogin() {
 		return "user/login";
 	}
-	
+
 	/**
 	 * ログイン機能
 	 */
@@ -74,29 +74,30 @@ public class UserController {
 		log.info("ログイン");
 		return "redirect:/";//マイページのリンクを設定予定
 	}
-	
+
 	@GetMapping("/edit/{id}")
-	public String getEditUser(Model model, @ModelAttribute("form") UserEditForm form, @AuthenticationPrincipal UserDetailServiceImpll loginUser, @PathVariable("id") int id) {
-		int userId = loginUser.getUser().getId();
-		model.addAttribute("userId", userId);
-		
-		if(id != userId) {
+	public String getEditUser(Model model, @ModelAttribute("form") UserEditForm form,
+			@AuthenticationPrincipal UserDetailServiceImpll loginUser, @PathVariable("id") int id) {
+		MUser user = loginUser.getUser();
+		model.addAttribute("user", user);
+
+		if (id != user.getId()) {
 			return "redirect:/";
 		}
 		return "user/edit";
 	}
-	
+
 	@PostMapping(value = "/edit/{id}/update", params = "update")
-	public String postUserUpdate(@Validated @ModelAttribute("form") UserEditForm form, BindingResult result, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
+	public String postUserUpdate(@Validated @ModelAttribute("form") UserEditForm form,
+			BindingResult result, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 		
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return "redirect:/edit/{id}";
 		}
-		
+
 		userService.updateUserOne(loginUser, form);
-		
+
 		return "redirect:/login";
 	}
-	
-	
+
 }
