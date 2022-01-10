@@ -91,6 +91,8 @@ public class RoomController {
 			@PathVariable("roomId") int id, @ModelAttribute("form") MessageForm form) {
 
 		//ログインユーザーの情報を取得
+		MUser user = loginUser.getUser();
+		model.addAttribute("user", user);
 		String username = loginUser.getUser().getName();
 		int loginUserId = loginUser.getUser().getId();
 
