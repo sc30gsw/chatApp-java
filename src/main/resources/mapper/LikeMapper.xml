@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.repository.LikeMapper">
+
+	<!-- マッピング定義(room_user) -->
+	<resultMap type="com.example.demo.entity.TLike" id="like">
+		<id column="id" property="id"></id>
+		<result column="message_id" property="messageId"></result>
+		<result column="user_id" property="userId"></result>
+		<result column="created_at" property="createdAt"></result>
+	</resultMap>
+	
+	<!-- like登録 -->
+	<insert id="insertLike">
+		insert into likes (
+			id,
+			message_id,
+			user_id,
+			created_at
+		) values (
+			#{id,jdbcType=INTEGER},
+			#{messageId,jdbcType=INTEGER},
+			#{userId,jdbcType=INTEGER},
+			#{createdAt,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<select id="likeCorrespondingMessage" resultMap="like">
+		select
+        		id,
+        		message_id,
+        		user_id,
+        		created_at
+    		from
+        		likes
+    		where 
+    			user_id = #{userId, jdbcType=INTEGER}
+	</select>
+	
+	<select id="likesCount" resultType="java.lang.Integer">
+		select
+				count(*)
+			from
+				likes
+			where
+				message_id = #{messageId, jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteLikeOne">
+		delete
+			from likes
+		where
+			user_id = #{userId, jdbcType=INTEGER}
+			and message_id = #{messageId, jdbcType=INTEGER}
+	</delete>
+</mapper>
