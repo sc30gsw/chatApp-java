@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,13 +19,16 @@ import com.example.demo.entity.MRoom;
 import com.example.demo.entity.MUser;
 import com.example.demo.entity.TMessages;
 import com.example.demo.entity.TRoomUser;
+import com.example.demo.form.LikeForm;
 import com.example.demo.form.MessageForm;
 import com.example.demo.form.RoomForm;
+import com.example.demo.service.LikeService;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomUserService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.UserDetailServiceImpll;
 
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -41,13 +45,16 @@ public class RoomController {
 	@Autowired
 	private RoomUserService roomUserService;
 
+	@Autowired
+	private LikeService likeService;
+
 	@GetMapping("/")
 	public String getRoomsIndex(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser) {
 
 		//ログインユーザーのユーザー名取得
 		MUser user = loginUser.getUser();
 		model.addAttribute("user", user);
-		
+
 		List<MRoom> rooms = roomService.getLoginUserRooms(loginUser);
 		model.addAttribute("rooms", rooms);
 
@@ -88,14 +95,14 @@ public class RoomController {
 
 	@GetMapping("/rooms/{roomId}")
 	public String getRoom(Model model, @AuthenticationPrincipal UserDetailServiceImpll loginUser,
-			@PathVariable("roomId") int id, @ModelAttribute("form") MessageForm form) {
+			@PathVariable("roomId") int id, @ModelAttribute("form") MessageForm form, @ModelAttribute("likeForm") LikeForm likeForm) {
 
 		//ログインユーザーの情報を取得
 		MUser user = loginUser.getUser();
 		model.addAttribute("user", user);
 		String username = loginUser.getUser().getName();
 		int loginUserId = loginUser.getUser().getId();
-
+		model.addAttribute("userId", loginUserId);
 		model.addAttribute("username", username);
 
 		//ログインユーザーと選択されたユーザーが保有するチャットルームを取得
@@ -120,7 +127,9 @@ public class RoomController {
 			//チャットルームに紐づくメッセージ取得
 			List<TMessages> messages = roomService.getMessagesAll(id);
 			model.addAttribute("messages", messages);
-
+			val likes = likeService.alreadyLiked(loginUser);
+			val likeMessageId = likes.stream().map(like -> like.getMessageId()).collect(Collectors.toList());
+			model.addAttribute("likeMessageId", likeMessageId);
 			return "messages/index";
 		}
 
