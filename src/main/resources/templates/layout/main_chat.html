@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,8 +12,10 @@
 				<div class="header-title" th:text="${roomName}"></div>
 			</div>
 			<div class="right-header">
-				<form th:action="@{'/rooms/'+${roomId}+'/delete'}" method="post" class="header-button">
-					<input class="delete-btn" name="delete" type="submit" value="チャットを終了する">
+				<form th:action="@{'/rooms/'+${roomId}+'/delete'}" method="post"
+					class="header-button">
+					<input class="delete-btn" name="delete" type="submit"
+						value="チャットを終了する">
 				</form>
 			</div>
 		</div>
@@ -26,17 +28,35 @@
 				</div>
 				<div class="lower-message">
 					<div class="message-content" th:text="${message.content}"></div>
-					<img th:if="${message.image != 'data:image/png;base64, '}" class="message-image" th:src="${message.image}" alt="">
+					<div class="like-field"
+						th:if="${#lists.contains(likeMessageId, message.id) == false && userId == user.id}">
+						<form method="post" th:object="${likeForm}"
+							th:action="@{'/rooms/' + ${roomId} + '/' + ${message.id}}">
+							<input type="hidden" id="messageId" name="messageId" th:value="${message.id}"> <a
+								onclick="this.parentNode.submit()">LIKE</a>
+						</form>
+						<div th:text="${likeCount}"></div>
+					</div>
+					<div class="like-field"
+						th:if="${#lists.contains(likeMessageId, message.id) == true && userId == user.id}">
+						<form method="post" th:object="${likeForm}"
+							th:action="@{'/rooms/'+ ${roomId} + '/' + ${message.id} + '/' + ${userId} +  '/delete'}">
+							<input type="hidden" id="messageId" name="messageId" th:value="${message.id}">
+							<a onclick="this.parentNode.submit()">UNLIKE</a>
+						</form>
+					</div>
 				</div>
+				<img th:if="${message.image != 'data:image/png;base64, '}"
+					class="message-image" th:src="${message.image}" alt="">
 			</div>
 		</div>
-
-		<form class="form" th:action="@{'/rooms/'+${roomId}+'/message'}" method="post" th:object="${form}" enctype="multipart/form-data">
+		<form class="form" th:action="@{'/rooms/'+${roomId}+'/message'}"
+			method="post" th:object="${form}" enctype="multipart/form-data">
 			<div class="form-input">
-				<input th:field="*{content}" th:errorclass="is-invalid" class="form-message" placeholder="type a message">
+				<input th:field="*{content}" th:errorclass="is-invalid"
+					class="form-message" placeholder="type a message">
 				<div class="invalid-feedback" th:errors="*{content}"></div>
-				<label class="form-image"> 
-					<span class="image-file">画像</span> 
+				<label class="form-image"> <span class="image-file">画像</span>
 					<input th:field="*{multiPartFile}" type="file" class="hidden">
 				</label>
 			</div>
