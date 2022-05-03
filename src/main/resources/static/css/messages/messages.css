@@ -104,12 +104,22 @@
 
 .lower-message {
 	margin-top: 10px;
+	display: flex;
 }
 
 .message-content {
 	color: #434a54;
 	font-size: 14px;
-	margin-bottom: 40px;
+	margin-bottom: 10px;
+}
+
+.like-field a{
+	cursor: pointer;
+}
+
+.like-field a:hover {
+	text-decoration: underline;
+	color: blue;
 }
 
 .form {
