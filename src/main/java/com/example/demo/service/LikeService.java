@@ -14,7 +14,5 @@ public interface LikeService {
 
 	public List<TLike> alreadyLiked(@AuthenticationPrincipal UserDetailServiceImpll loginUser);
 	
-	public int messageLikesCount(int messageId);
-	
 	public void destroyLike(int userId, int messageId);
 }

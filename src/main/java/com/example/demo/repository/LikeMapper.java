@@ -14,7 +14,5 @@ public interface LikeMapper {
 	
 	public List<TLike> likeCorrespondingMessage(int userId);
 	
-	public int likesCount(int messageId);
-	
 	public void deleteLikeOne(@Param("userId")int userId, @Param("messageId")int messageId);
 }

@@ -47,11 +47,6 @@ public class LikeServiceImpl implements LikeService {
 	}
 	
 	@Override
-	public int messageLikesCount(int messageId) {
-		return mapper.likesCount(messageId);
-	}
-	
-	@Override
 	public void destroyLike(int userId, int messageId) {
 		mapper.deleteLikeOne(userId, messageId);
 	}
