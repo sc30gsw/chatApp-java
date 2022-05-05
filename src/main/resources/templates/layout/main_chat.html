@@ -21,6 +21,7 @@
 		</div>
 
 		<div class="messages">
+		<span th:text="${messages}"></span>
 			<div class="message" th:each="message: ${messages}">
 				<div class="upper-message">
 					<div class="message-user" th:text="${message.name}"></div>
@@ -33,9 +34,8 @@
 						<form method="post" th:object="${likeForm}"
 							th:action="@{'/rooms/' + ${roomId} + '/' + ${message.id}}">
 							<input type="hidden" id="messageId" name="messageId" th:value="${message.id}"> <a
-								onclick="this.parentNode.submit()">LIKE</a>
+								onclick="this.parentNode.submit()">LIKE</a><span th:text="${message.likes}"></span>
 						</form>
-						<div th:text="${likeCount}"></div>
 					</div>
 					<div class="like-field"
 						th:if="${#lists.contains(likeMessageId, message.id) == true && userId == user.id}">
