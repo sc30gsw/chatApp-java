@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.MRoom;
 import com.example.demo.entity.MUser;
-import com.example.demo.entity.TMessages;
+import com.example.demo.entity.MessagesDetail;
 import com.example.demo.entity.TRoomUser;
 import com.example.demo.form.LikeForm;
 import com.example.demo.form.MessageForm;
@@ -116,6 +116,10 @@ public class RoomController {
 		int currentUserId = roomUser.getCurrentUserId();
 		//room_usersに登録されているチャットするユーザーのIDを取得
 		int userId = roomUser.getUserId();
+		
+		//チャットルームに紐づくメッセージ取得
+		List<MessagesDetail> messages = roomService.getMessagesAll(id);
+		model.addAttribute("messages", messages);
 
 		//ログインユーザーとroom_usersのログインユーザーID、またはログインユーザーとチャット選択されたユーザーのIDが等しい時メッセー送信画面に遷移する
 		if (loginUserId == currentUserId || loginUserId == userId) {
@@ -124,12 +128,10 @@ public class RoomController {
 			String roomName = room.getRoomName();
 			model.addAttribute("roomName", roomName);
 
-			//チャットルームに紐づくメッセージ取得
-			List<TMessages> messages = roomService.getMessagesAll(id);
-			model.addAttribute("messages", messages);
 			val likes = likeService.alreadyLiked(loginUser);
 			val likeMessageId = likes.stream().map(like -> like.getMessageId()).collect(Collectors.toList());
 			model.addAttribute("likeMessageId", likeMessageId);
+			
 			return "messages/index";
 		}
 
