@@ -12,7 +12,7 @@ public class TLike implements Serializable {
 	
 	private static final long serialVersionUID = 5157962990625055876L;
 	
-	private int id;
+	private int likeId;
 	
 	private int messageId;
 	
