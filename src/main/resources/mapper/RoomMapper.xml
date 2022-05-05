@@ -31,6 +31,19 @@
 		<result column="user_id" property="userId"></result>
 		<result column="created_at" property="createdAt"></result>
 		<result column="updated_at" property="updatedAt"></result>
+		<collection property="likes" resultMap="like"></collection>
+	</resultMap>
+	
+	<!-- マッピング定義(like) -->
+	<resultMap type="com.example.demo.entity.TLike" id="like">
+		<id column="id" property="likeId"></id>
+		<result column="message_id" property="messageId"></result>
+		<result column="user_id" property="userId"></result>
+		<result column="created_at" property="createdAt"></result>
+	</resultMap>
+	
+	<resultMap type="com.example.demo.entity.MessagesDetail" id="messagesDetail" extends="message">
+		<result column="name" property="name"></result>
 	</resultMap>
 	
 	<!-- チャットルーム登録 -->
@@ -75,21 +88,22 @@
 	</select>
 	
 	<!-- チャットルームに紐づくメッセージ取得 -->
-	<select id="findMessagesAll" resultType="com.example.demo.entity.MessagesDetail">
+	<select id="findMessagesAll" resultMap="messagesDetail">
 		select
 			u.name,
 			m.id,
-			content,
-			image,
+			m.content,
+			m.image,
 			m.room_id,
 			m.user_id,
-			m.created_at,
-			m.updated_at
+			l.message_id
 		from rooms r
 		inner join messages m
 			on r.id = m.room_id
 		inner join users u
 			on m.user_id = u.id
+		inner join likes l
+			on m.id = l.message_id
 		where
 			r.id = #{id,jdbcType=INTEGER}
 		order by m.created_at DESC
